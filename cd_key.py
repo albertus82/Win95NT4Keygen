@@ -8,7 +8,7 @@ def cd_keygen_first_segment():
     while first_seg in first_seg_not_allowed:
         first_seg = str(random.randint(0, 998))
 
-    return str(first_seg).rjust(3, '0')
+    return str(first_seg).zfill(3)
 
 
 def cd_keygen_seven_digit():
@@ -16,18 +16,18 @@ def cd_keygen_seven_digit():
     seventh_digit = random.randint(0, 9)
     while seventh_digit == 0 or seventh_digit >= 8:
         seventh_digit = random.randint(0, 9)
-    seven_digits = (six_digits + str(seventh_digit)).rjust(7, '0')
+    seven_digits = (six_digits + str(seventh_digit)).zfill(7)
 
-    sum = 0
+    tsum = 0
     for x in seven_digits:
-        sum += int(x)
+        tsum += int(x)
 
-    return seven_digits, sum
+    return seven_digits, tsum
 
 
 def check_seven_digit():
-    seven_digits, sum = cd_keygen_seven_digit()
-    while sum % 7 != 0:
-        seven_digits, sum = cd_keygen_seven_digit()
+    seven_digits, tsum = cd_keygen_seven_digit()
+    while tsum % 7 != 0:
+        seven_digits, tsum = cd_keygen_seven_digit()
 
     return seven_digits
