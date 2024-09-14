@@ -4,9 +4,9 @@ import random
 
 def oem_first_segment():
     years = ["95", "96", "97", "98", "99", "00", "01", "02", "03"]
-    three_digits = random.randint(0, 366)
     two_digits = random.choice(years)
-    return str(three_digits) + str(two_digits)
+    three_digits = random.randint(1, 366 if two_digits in ["96", "00"] else 365)
+    return str(three_digits).zfill(3) + str(two_digits)
 
 
 def oem_second_segment():
@@ -15,22 +15,22 @@ def oem_second_segment():
     while last_digit == 0 or last_digit >= 8:
         last_digit = random.randint(0, 9)
 
-    second_segment = ("0" + str(middle_digits) + str(last_digit)).rjust(7, "0")
+    second_segment = ("0" + str(middle_digits) + str(last_digit)).zfill(7)
 
-    sum = 0
+    tsum = 0
     for x in second_segment:
-        sum += int(x)
+        tsum += int(x)
 
-    return second_segment, sum
+    return second_segment, tsum
 
 
 def check_second_digit():
-    seven_digits, sum = oem_second_segment()
-    while sum % 7 != 0:
-        seven_digits, sum = oem_second_segment()
+    seven_digits, tsum = oem_second_segment()
+    while tsum % 7 != 0:
+        seven_digits, tsum = oem_second_segment()
     return seven_digits
 
 
 def oem_third_segment():
     third_segment = random.randint(0, 99999)
-    return str(third_segment).rjust(5, "0")
+    return str(third_segment).zfill(5)
